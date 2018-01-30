@@ -10,10 +10,10 @@ namespace RailBox
     public class AccountHistoryItem
     {
         public string Hash { get; set; }
-        public string Receive { get; set; }
+        public string Type { get; set; }
         public string Account { get; set; }
 
         [JsonConverter(typeof(RaiAmountJsonConverter))]
-        public BigInteger Amount { get; set; }
+        public RaiAmount Amount { get; set; }
     }
 }

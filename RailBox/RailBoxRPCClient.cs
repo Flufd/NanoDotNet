@@ -36,20 +36,30 @@ namespace RailBox
             httpClient.Dispose();
         }
 
-        public async Task<AccountBalance> AccountBalance(string account)
+        private async Task<T> PostActionAsync<T>(object action)
         {
-            return await PostAction<AccountBalance>(new
+            var content = new StringContent(JsonConvert.SerializeObject(action, jsonSerializerSettings), Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("", content);
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(stringResponse, jsonSerializerSettings);
+        }
+
+        /// <inheritdoc />
+        public async Task<AccountBalance> GetAccountBalanceAsync(RaiAccount account)
+        {
+            return await PostActionAsync<AccountBalance>(new
             {
-                Account = account,
+                Account = account.Account,
                 Action = ActionTypes.AccountBalance
             });
         }
 
-        public async Task<AccountInformation> AccountInformation(string account, bool fetchRepresentative = false, bool fetchWeight = false, bool fetchPending = false)
+        /// <inheritdoc />
+        public async Task<AccountInformationResponse> GetAccountInformationAsync(RaiAccount account, bool fetchRepresentative = false, bool fetchWeight = false, bool fetchPending = false)
         {
-            return await PostAction<AccountInformation>(new
+            return await PostActionAsync<AccountInformationResponse>(new
             {
-                Account = account,
+                Account = account.Account,
                 Action = ActionTypes.AccountInfo,
                 Pending = fetchPending,
                 Weight = fetchWeight,
@@ -57,43 +67,80 @@ namespace RailBox
             });
         }
 
-        public async Task<IsValidResponse> UnlockWallet(string wallet, string password)
+        /// <inheritdoc />
+        public async Task<IsValidResponse> UnlockWalletAsync(RaiWallet wallet, string password)
         {
-            return await PostAction<IsValidResponse>(new
+            return await PostActionAsync<IsValidResponse>(new
             {               
                 Action = ActionTypes.PasswordEnter,
                 Password = password,
-                Wallet = wallet
+                Wallet = wallet.Wallet
             });
         }
 
-        public async Task<IsValidResponse> ValidateWalletPassword(string wallet)
+        /// <inheritdoc />
+        public async Task<IsValidResponse> ValidateWalletPasswordAsync(RaiWallet wallet)
         {
-            return await PostAction<IsValidResponse>(new
+            return await PostActionAsync<IsValidResponse>(new
             {
                 Action = ActionTypes.PasswordValid,
-                Wallet = wallet
+                Wallet = wallet.Wallet
             });
         }
 
-        public async Task<BlockResponse> Send(string wallet, string sourceAddress, string destinationAddress, RaiAmount amount)
+        /// <inheritdoc />
+        public async Task<BlockResponse> SendAsync(RaiWallet wallet, RaiAccount sourceAddress, RaiAccount destinationAddress, RaiAmount amount)
         {
-            return await PostAction<BlockResponse>(new
+            return await PostActionAsync<BlockResponse>(new
             {
                 Action = ActionTypes.Send,
-                Wallet = wallet,
-                Source = sourceAddress,
-                Destination = destinationAddress,
+                Wallet = wallet.Wallet,
+                Source = sourceAddress.Account,
+                Destination = destinationAddress.Account,
                 Amount = amount.Raw
             });
         }
 
-        private async Task<T> PostAction<T>(object action)
+        /// <inheritdoc />
+        public async Task<RaiAccount> CreateAccountAsync(RaiWallet wallet, bool work = true)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(action, jsonSerializerSettings), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("", content);
-            var stringResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(stringResponse, jsonSerializerSettings);
+            return await PostActionAsync<RaiAccount>(new
+            {
+                Action = ActionTypes.AccountCreate,
+                Wallet = wallet.Wallet,
+                Work = work
+            });
+        }
+
+        /// <inheritdoc />
+        public async Task<RaiAccount> GetAccountAsync(string publicKey)
+        {
+            return await PostActionAsync<RaiAccount>(new
+            {
+                Action = ActionTypes.AccountGet,               
+                Key = publicKey
+            });
+        }
+
+        /// <inheritdoc />
+        public async Task<AccountHistory> GetAccountHistoryAsync(RaiAccount account, int count)
+        {
+            return await PostActionAsync<AccountHistory>(new
+            {
+                Action = ActionTypes.AccountHistory,
+                Account = account.Account,
+                Count = count
+            });
+        }
+
+        /// <inheritdoc/>
+        public async Task<RaiPublicKey> GetAccountPublicKey(RaiAccount account)
+        {
+            return await PostActionAsync<RaiPublicKey>(new
+            {
+                Action = ActionTypes.AccountKey,
+                Account = account.Account
+            });
         }
     }
 }

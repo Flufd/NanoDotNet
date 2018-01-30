@@ -11,6 +11,11 @@ namespace RailBox
         public const string PasswordEnter = "password_enter";
         public const string PasswordValid = "password_valid";
         public const string Send = "send";
+        public const string AccountCreate = "account_create";
+        public const string AccountGet = "account_get";
+        public const string AccountHistory = "account_history";
+        public const string AccountKey = "account_key";
+
 
     }
 }

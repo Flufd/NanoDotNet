@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RailBox
 {
-    public class AccountInformation
+    public class AccountInformationResponse
     {
         public string Frontier { get; set; }
         public string OpenBlock { get; set; }
