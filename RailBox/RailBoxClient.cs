@@ -12,7 +12,7 @@ namespace RailBox
     /// <summary>
     /// TEST
     /// </summary>
-    public class RailBoxClient : IDisposable
+    public class RailBoxClient : IDisposable, IRailBoxClient
     {
         private readonly string nodeRpcEndpoint;
         private HttpClient httpClient;
@@ -69,12 +69,11 @@ namespace RailBox
             });
         }
 
-        public async Task<IsValidResponse> ValidateWalletPassword(string wallet, string password)
+        public async Task<IsValidResponse> ValidateWalletPassword(string wallet)
         {
             return await PostAction<IsValidResponse>(new
             {
-                Action = ActionTypes.PasswordValid,   
-                //Password = password,
+                Action = ActionTypes.PasswordValid,
                 Wallet = wallet
             });
         }
