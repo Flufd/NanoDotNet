@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using RailBox.Models;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Text;
 
 namespace RailBox.JsonConverters
 {
