@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RailBox.Models
+namespace RailBox
 {
     public class IsValidResponse
     {

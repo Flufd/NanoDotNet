@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
 
-namespace RailBox.Models
+namespace RailBox
 {
     /// <summary>
     /// Represents an amount of RaiBlocks

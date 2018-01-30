@@ -1,18 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using RailBox.Models;
 using System;
 using System.Net.Http;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RailBox
 {
     /// <summary>
-    /// TEST
+    /// Provides methods to call RPC methods on a RaiBlocks node
     /// </summary>
-    public class RailBoxClient : IDisposable, IRailBoxClient
+    public class RailBoxRpcClient : IDisposable, IRailBoxRpcClient
     {
         private readonly string nodeRpcEndpoint;
         private HttpClient httpClient;
@@ -24,7 +22,7 @@ namespace RailBox
             }
         };
 
-        public RailBoxClient(string nodeRpcEndpoint)
+        public RailBoxRpcClient(string nodeRpcEndpoint)
         {
             this.nodeRpcEndpoint = nodeRpcEndpoint;
             this.httpClient = new HttpClient

@@ -3,7 +3,7 @@ using RailBox.Models;
 
 namespace RailBox
 {
-    public interface IRailBoxClient
+    public interface IRailBoxRpcClient
     {
         Task<AccountBalance> AccountBalance(string account);
         Task<AccountInformation> AccountInformation(string account, bool fetchRepresentative = false, bool fetchWeight = false, bool fetchPending = false);
