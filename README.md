@@ -1,5 +1,5 @@
-# RailBox
-.NET Library for working with RaiBlocks
+# NanoDotNet
+.NET Library for working with Nano (Formerly RaiBlocks)
 
 Example usage
 ----
