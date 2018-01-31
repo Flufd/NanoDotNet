@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,10 +40,17 @@ namespace RailBox
 
         private async Task<T> PostActionAsync<T>(object action)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(action, jsonSerializerSettings), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("", content);
-            var stringResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(stringResponse, jsonSerializerSettings);
+            try
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(action, jsonSerializerSettings), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("", content);
+                var stringResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(stringResponse, jsonSerializerSettings);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         /// <inheritdoc />
@@ -134,12 +143,51 @@ namespace RailBox
         }
 
         /// <inheritdoc/>
-        public async Task<RaiPublicKey> GetAccountPublicKey(RaiAccount account)
+        public async Task<RaiPublicKey> GetAccountPublicKeyAsync(RaiAccount account)
         {
             return await PostActionAsync<RaiPublicKey>(new
             {
                 Action = ActionTypes.AccountKey,
                 Account = account.Account
+            });
+        }
+
+        public async Task<PendingAccountBlocks> GetAccountsPendingAsync(IEnumerable<RaiAccount> accounts, int count)
+        {
+            return await PostActionAsync<PendingAccountBlocks>(new
+            {
+                Action = ActionTypes.AccountsPending,
+                Accounts = accounts.Select(a => a.Account),
+                Count = 1
+            });
+        }
+
+        public async Task<BlockResponse> ReceiveAsync(RaiWallet wallet, RaiAccount raiAccount, string block)
+        {
+            return await PostActionAsync<BlockResponse>(new
+            {
+                Action = ActionTypes.Receive,
+                Wallet = wallet.Wallet,
+                Account = raiAccount.Account,
+                Block = block
+            });
+        }
+
+        public async Task<BlockCollectionResponse> GetBlocksAsync(IEnumerable<string> hashes)
+        {
+            return await PostActionAsync<BlockCollectionResponse>(new
+            {
+                Action = ActionTypes.Blocks,
+                Hashes = hashes
+            });
+        }
+
+        public async Task<BlockInfoCollectionResponse> GetBlockInfosAsync(IEnumerable<string> hashes)
+        {
+            return await PostActionAsync<BlockInfoCollectionResponse>(new
+            {
+                Action = ActionTypes.BlocksInfo,
+                Hashes = hashes
             });
         }
     }

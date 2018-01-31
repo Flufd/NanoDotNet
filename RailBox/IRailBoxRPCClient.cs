@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RailBox
 {
@@ -11,6 +12,11 @@ namespace RailBox
         Task<IsValidResponse> ValidateWalletPasswordAsync(RaiWallet wallet);
         Task<RaiAccount> CreateAccountAsync(RaiWallet wallet, bool work = true);
         Task<RaiAccount> GetAccountAsync(string publicKey);
-        Task<RaiPublicKey> GetAccountPublicKey(RaiAccount account);
+        Task<RaiPublicKey> GetAccountPublicKeyAsync(RaiAccount account);
+        Task<PendingAccountBlocks> GetAccountsPendingAsync(IEnumerable<RaiAccount> accounts, int count);
+        Task<BlockResponse> ReceiveAsync(RaiWallet wallet, RaiAccount raiAccount, string block);
+        Task<BlockCollectionResponse> GetBlocksAsync(IEnumerable<string> hashes);
+        Task<BlockInfoCollectionResponse> GetBlockInfosAsync(IEnumerable<string> hashes);
+
     }
 }

@@ -21,6 +21,17 @@ namespace RailBox
         }
 
         /// <summary>
+        /// Creates a RaiAmount of the specified amount and base unit
+        /// </summary>
+        /// <param name="amount">The numerical value of the amount</param>
+        /// <param name="amountBase">The base unit of the amount</param>
+        public RaiAmount(long amount, RaiAmountBase amountBase)
+        {
+            Raw = amount * BigInteger.Pow(10, (int)amountBase);
+        }
+
+
+        /// <summary>
         /// The amount of Raw in the RaiAmount, this is the base amount for RaiBlocks
         /// </summary>
         public BigInteger Raw { get; private set; }

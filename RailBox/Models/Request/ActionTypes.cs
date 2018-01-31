@@ -15,6 +15,10 @@ namespace RailBox
         public const string AccountGet = "account_get";
         public const string AccountHistory = "account_history";
         public const string AccountKey = "account_key";
+        public const string AccountsPending = "accounts_pending";
+        public const string Receive = "receive";
+        public const string Blocks = "blocks";
+        public const string BlocksInfo = "blocks_info";
 
 
     }
