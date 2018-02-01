@@ -30,7 +30,7 @@ using (var client = new NanoRpcClient("http://localhost:7076"))
         new NanoAmount(100, AmountBase.Nano) // Amount to send
     );
     
-    Console.WriteLine($"The account balance is {accountBalance.Balance.ToString(AmountBase.Mxrb)} Mxrb");
+    Console.WriteLine($"The next block hash is {nextBlock.Block}");
 }
 ```
 
