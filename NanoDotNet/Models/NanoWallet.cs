@@ -6,6 +6,16 @@ namespace NanoDotNet
 {
     public class NanoWallet
     {
+        public NanoWallet()
+        {
+
+        }
+
+        public NanoWallet(string wallet)
+        {
+            this.Wallet = wallet;
+        }
+
         public string Wallet { get; set; }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace NanoDotNet
 {
-    public class PendingAccountBlocks
+    public class ChangeBlock : Block
     {
-        public Dictionary<string, List<string>> Blocks { get; set; }
+        public string Representative { get; set; }
     }
 }

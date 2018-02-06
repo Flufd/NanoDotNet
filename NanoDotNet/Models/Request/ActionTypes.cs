@@ -19,6 +19,8 @@ namespace NanoDotNet
         public const string Receive = "receive";
         public const string Blocks = "blocks";
         public const string BlocksInfo = "blocks_info";
+        public const string ReceiveMinimumSet = "receive_minimum_set";
+        public const string BlockAccount = "block_account";
 
 
     }

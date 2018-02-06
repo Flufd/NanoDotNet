@@ -43,7 +43,7 @@ namespace NanoDotNet
         /// <returns></returns>
         public string ToString(AmountBase amountBase)
         {
-            if(amountBase == AmountBase.raw)
+            if (amountBase == AmountBase.raw)
             {
                 return Raw.ToString();
             }
@@ -55,23 +55,29 @@ namespace NanoDotNet
             var zeros = new String('0', (int)amountBase);
 
             var appended = zeros + rawString;
-            
+
             // Move the decimal up by the base unit
             var withDecimal = appended.Substring(0, appended.Length - (int)amountBase) + "." + appended.Substring(appended.Length - (int)amountBase);
 
             // Trim off leaing zeros and trailing zeros and decimal points
             var trimmed = withDecimal.TrimStart('0').TrimEnd('0').TrimEnd('.');
-            if(trimmed.Length == 0)
+            if (trimmed.Length == 0)
             {
                 return "0";
             }
 
-            if(trimmed[0] == '.')
+            if (trimmed[0] == '.')
             {
                 return "0" + trimmed;
             }
 
             return trimmed;
         }
+
+        public static NanoAmount operator -(NanoAmount a, NanoAmount b) => new NanoAmount(a.Raw - b.Raw, AmountBase.raw);
+
+        public static NanoAmount operator +(NanoAmount a, NanoAmount b) => new NanoAmount(a.Raw + b.Raw, AmountBase.raw);
+
+        public static NanoAmount operator *(NanoAmount a, long b) => new NanoAmount(a.Raw * b, AmountBase.raw);
     }
 }

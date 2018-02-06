@@ -22,13 +22,13 @@ namespace NanoDotNet.JsonConverters
                     return JsonConvert.DeserializeObject<SendBlock>(reader.Value.ToString());
 
                 case "open":
-                    return JsonConvert.DeserializeObject<SendBlock>(reader.Value.ToString());
+                    return JsonConvert.DeserializeObject<OpenBlock>(reader.Value.ToString());
 
                 case "receive":
-                    return JsonConvert.DeserializeObject<SendBlock>(reader.Value.ToString());
+                    return JsonConvert.DeserializeObject<ReceiveBlock>(reader.Value.ToString());
 
                 case "change":
-                    return JsonConvert.DeserializeObject<SendBlock>(reader.Value.ToString());
+                    return JsonConvert.DeserializeObject<ChangeBlock>(reader.Value.ToString());
 
                 default:
                     throw new InvalidOperationException("Unknown block type");

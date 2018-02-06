@@ -158,7 +158,7 @@ namespace NanoDotNet
             {
                 Action = ActionTypes.AccountsPending,
                 Accounts = accounts.Select(a => a.Account),
-                Count = 1
+                Count = count
             });
         }
 
@@ -188,6 +188,26 @@ namespace NanoDotNet
             {
                 Action = ActionTypes.BlocksInfo,
                 Hashes = hashes
+            });
+        }
+
+        public async Task<bool> SetReceiveMinumum(NanoAmount amount)
+        {
+            await PostActionAsync<IsSuccessResponse>(new
+            {
+                Action = ActionTypes.ReceiveMinimumSet,
+                Amount = amount.Raw
+            });
+
+            return true;
+        }
+
+        public async Task<NanoAccount> GetBlockAccount(string blockHash)
+        {
+            return await PostActionAsync<NanoAccount>(new
+            {
+                Hash = blockHash,
+                Action = ActionTypes.BlockAccount
             });
         }
     }

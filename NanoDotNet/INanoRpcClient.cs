@@ -17,6 +17,7 @@ namespace NanoDotNet
         Task<BlockResponse> ReceiveAsync(NanoWallet wallet, NanoAccount nanoAccount, string block);
         Task<BlockCollectionResponse> GetBlocksAsync(IEnumerable<string> hashes);
         Task<BlockInfoCollectionResponse> GetBlockInfosAsync(IEnumerable<string> hashes);
-
+        Task<bool> SetReceiveMinumum(NanoAmount amount);
+        Task<NanoAccount> GetBlockAccount(string blockHash);
     }
 }
