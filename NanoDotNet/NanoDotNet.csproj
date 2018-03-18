@@ -8,4 +8,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\lib\Blake2Sharp\Blake2Sharp.csproj" />
+  </ItemGroup>
 </Project>

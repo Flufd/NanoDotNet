@@ -61,6 +61,7 @@ namespace NanoDotNet
 
             // Trim off leaing zeros and trailing zeros and decimal points
             var trimmed = withDecimal.TrimStart('0').TrimEnd('0').TrimEnd('.');
+            
             if (trimmed.Length == 0)
             {
                 return "0";
