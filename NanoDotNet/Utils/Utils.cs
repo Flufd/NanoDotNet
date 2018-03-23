@@ -62,7 +62,7 @@ namespace NanoDotNet
             return hex.ToString();
         }
 
-        public static string PublicKeyToAdress(byte[] publicKey)
+        public static string PublicKeyToAddress(byte[] publicKey)
         {
             var address = "xrb_" + XrbEncode(publicKey);
 

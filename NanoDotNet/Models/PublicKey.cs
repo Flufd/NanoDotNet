@@ -24,7 +24,7 @@ namespace NanoDotNet
             {
                 if (address == null)
                 {
-                    address = Utils.PublicKeyToAdress(Bytes);
+                    address = Utils.PublicKeyToAddress(Bytes);
                 }
                 return address;
             }

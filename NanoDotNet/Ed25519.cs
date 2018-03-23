@@ -18,16 +18,10 @@ namespace NanoDotNet.Crypto
     {
         private static byte[] ComputeHash(byte[] m)
         {
-            //using (var sha512 = SHA512Managed.Create())
-            //{
-            //    return sha512.ComputeHash(m);
-            //}
-
             var hasher = Blake2Sharp.Blake2B.Create(new Blake2Sharp.Blake2BConfig { OutputSizeInBytes = 64 });
             hasher.Init();
             hasher.Update(m);
-            return hasher.Finish();
-                
+            return hasher.Finish();                
         }
 
         private static BigInteger ExpMod(BigInteger number, BigInteger exponent, BigInteger modulo)
