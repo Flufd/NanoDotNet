@@ -44,7 +44,7 @@ namespace NanoDotNet
 
             blake.Init();
             blake.Update(seedBytes);
-            blake.Update(BitConverter.GetBytes(index).Reverse().ToArray());
+            blake.Update(BitConverter.IsLittleEndian ? BitConverter.GetBytes(index).Reverse().ToArray() : BitConverter.GetBytes(index));
 
             var privateKey = blake.Finish();
             var publicKey = Ed25519.PublicKey(privateKey);
