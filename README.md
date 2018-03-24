@@ -1,6 +1,11 @@
 # NanoDotNet
 .NET Library for working with Nano (Formerly RaiBlocks)
 
+Features
+----
+* Wrapper around RPC calls, create a `NanoRpcClient` and call the RPC methods on it
+* Utilities to generate private keys and Nano addresses from seeds
+
 Roadmap
 ----
 * RPC Client (In progress)
