@@ -133,7 +133,73 @@ namespace NanoDotNet
             return pk;
         }
 
+        public static string HashSendBlock(string previousHash, string address, string balanceHex)
+        {
+            var previousBytes = HexStringToByteArray(previousHash);
+            var publicKey = AddressToPublicKey(address);
+            var balanceBytes = HexStringToByteArray(balanceHex.PadLeft(32,'0'));
 
+            var blake = Blake2Sharp.Blake2B.Create(new Blake2Sharp.Blake2BConfig() { OutputSizeInBytes = 32 });
+            blake.Init();
+            blake.Update(previousBytes);
+            blake.Update(publicKey);
+            blake.Update(balanceBytes);
+            var hashBytes = blake.Finish();
 
+            return ByteArrayToHex(hashBytes);
+
+        }
+
+        public static string HashReceiveBlock(string previousHash, string sourceHash)
+        {
+            var previousBytes = HexStringToByteArray(previousHash);
+            var sourceHashBytes = HexStringToByteArray(sourceHash);
+
+            var blake = Blake2Sharp.Blake2B.Create(new Blake2Sharp.Blake2BConfig() { OutputSizeInBytes = 32 });
+            blake.Init();
+            blake.Update(previousBytes);
+            blake.Update(sourceHashBytes);
+            var hashBytes = blake.Finish();
+
+            return ByteArrayToHex(hashBytes);
+
+        }
+
+        public static string HashChangeBlock(string previousHash, string representativeAccount)
+        {
+            var previousBytes = HexStringToByteArray(previousHash);
+            var representativePublicKey = AddressToPublicKey(representativeAccount);
+
+            var blake = Blake2Sharp.Blake2B.Create(new Blake2Sharp.Blake2BConfig() { OutputSizeInBytes = 32 });
+            blake.Init();
+            blake.Update(previousBytes);
+            blake.Update(representativePublicKey);
+            var hashBytes = blake.Finish();
+
+            return ByteArrayToHex(hashBytes);
+        }
+
+        public static string HashOpenBlock(string sourceHash, string representativeAccount, string accountAddress)
+        {           
+            var sourceBytes = HexStringToByteArray(sourceHash);
+            var representativePublicKey = AddressToPublicKey(representativeAccount);
+            var accountPublicKey = AddressToPublicKey(accountAddress);
+
+            var blake = Blake2Sharp.Blake2B.Create(new Blake2Sharp.Blake2BConfig() { OutputSizeInBytes = 32 });
+            blake.Init();
+            blake.Update(sourceBytes);
+            blake.Update(representativePublicKey);
+            blake.Update(accountPublicKey);
+            var hashBytes = blake.Finish();
+
+            return ByteArrayToHex(hashBytes);
+        }
+
+        public static string SignHash(string hash, byte[] privateKey)
+        {
+            var publicKey = Ed25519.PublicKey(privateKey);
+            var signature = Ed25519.Signature(HexStringToByteArray(hash), privateKey, publicKey);
+            return ByteArrayToHex(signature);
+        }
     }
 }
