@@ -1,8 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>1.1.0</Version>
+    <PackageLicenseUrl>https://github.com/Flufd/NanoDotNet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Flufd/NanoDotNet</PackageProjectUrl>
+    <Copyright>Stewart Parry 2018</Copyright>
+    <RepositoryUrl>https://github.com/Flufd/NanoDotNet</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Nano, Cryptocurrency</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
